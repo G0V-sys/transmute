@@ -77,15 +77,6 @@ chmod +x install.sh
 ./run.sh to run
 ./install.sh to install
 ```
-
-## Building a distributable
-
-```bash
-# AppImage (recommended — works on any distro)
-npm run build:appimage
-
-Output goes to `dist/`.
-
 ---
 
 ## Privilege escalation
@@ -129,10 +120,10 @@ You need a staging location with **at least 110% of your source data size** free
 
 ## Important notes
 
-- **System partitions** (`/`, `/boot`, `/usr`) are detected and blocked — boot from a live USB to convert those
-- **Encrypted partitions** (LUKS) are not supported — decrypt first
-- **LVM volumes** should work if they appear as block devices, but are untested currently
-- **Swap partitions** are not convertible (they have no filesystem)
+- System partitions (`/`, `/boot`, `/usr`) are detected and blocked — boot from a live USB to convert those
+- Encrypted partitions (LUKS) are not supported — decrypt first
+- LVM volumes should work if they appear as block devices, but are untested currently
+- Swap partitions are not convertible (they have no filesystem)
 - It is recommended to maintain an **independent backup** before any filesystem operation. Transmute was created with data safety in mind and has been tested extensively on my own drives and data, but it is better to be safe than sorry.
 - There is an option for transmute to keep the staging data (not clean it up on conversion completion). 
 - This serves as a secondary full data backup. If anything feels off after the conversion, your data is still sitting in the staging file ready to be restored manually or via the Recovery tab.
@@ -141,33 +132,3 @@ You need a staging location with **at least 110% of your source data size** free
 - `/etc/fstab` is updated automatically with the new UUID — a backup is saved to `/etc/fstab.transmute.bak`
 
 ---
-
-## Architecture
-
-```
-transmute/
-├── src/
-│   ├── main/
-│   │   ├── main.js              ← Electron main process
-│   │   ├── preload.js           ← Secure IPC bridge
-│   │   ├── backend/
-│   │   │   ├── driveScanner.js  ← lsblk/blkid/df/dumpe2fs
-│   │   │   ├── depChecker.js    ← Tool availability detection
-│   │   │   ├── stagingValidator.js ← Space/write checks
-│   │   │   ├── conversionEngine.js ← rsync pipeline
-│   │   │   └── historyStore.js  ← JSON history persistence
-│   │   └── ipc/
-│   │       └── ipcHandlers.js   ← IPC ↔ backend wiring
-│   └── renderer/
-│       ├── index.html           ← App shell
-│       ├── styles.css           ← Dark/light theme CSS
-│       └── app.js               ← Full UI (vanilla JS)
-├── run.sh                       ← Setup + launch script
-└── package.json
-```
-
----
-
-## License
-
-MIT — use freely, at your own risk. Disk operations are inherently dangerous. Back up your data.
