@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline';">
+  <title>Transmute</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="dark">
+  <div id="app">
+    <!-- Titlebar -->
+    <div class="titlebar" id="titlebar">
+      <div class="titlebar-drag">
+        <span class="app-name">Transmute</span>
+        <span class="app-tagline">filesystem converter</span>
+      </div>
+      <div class="titlebar-controls">
+        <button class="tc-btn" id="btnMin" title="Minimize">─</button>
+        <button class="tc-btn" id="btnMax" title="Maximize">□</button>
+        <button class="tc-btn tc-close" id="btnClose" title="Close">✕</button>
+      </div>
+    </div>
+
+    <!-- Main shell -->
+    <div class="shell">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-toggle-row">
+          <button class="sidebar-toggle" id="sidebarToggle" title="Toggle Sidebar">
+            <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <nav class="nav-section">
+          <div class="nav-label"><span>Operations</span></div>
+          <button class="nav-item active" data-view="convert" id="nav-convert">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M2 5h9m0 0L8 2m3 3-3 3M14 11H5m0 0 3 3M5 11l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="nav-text">Convert</span>
+          </button>
+          <button class="nav-item" data-view="recovery" id="nav-recovery">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12M4.5 4.5l7 7M11.5 4.5l-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span class="nav-text">Disk Recovery</span>
+          </button>
+          <button class="nav-item" data-view="analyze" id="nav-analyze">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span class="nav-text">Analyze</span>
+          </button>
+          <button class="nav-item" data-view="history" id="nav-history">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span class="nav-text">History</span>
+            <span class="nav-badge" id="historyBadge">0</span>
+          </button>
+          <button class="nav-item" data-view="deps" id="nav-deps">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="nav-text">Dependencies</span>
+            <span class="dep-status" id="depStatusDot"></span>
+          </button>
+        </nav>
+
+        <div class="sidebar-sep"></div>
+
+        <div class="nav-label"><span>Detected Drives</span></div>
+        <div id="sidebarDrives" class="sidebar-drives">
+          <div class="sidebar-loading">Scanning…</div>
+        </div>
+
+        <div class="sidebar-footer">
+          <button class="footer-btn" id="scanBtn">
+            <svg viewBox="0 0 16 16" fill="none" width="13" height="13"><path d="M13.5 8A5.5 5.5 0 1 1 8 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M13.5 2.5v3h-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="footer-btn-text">Rescan</span>
+          </button>
+          <button class="footer-btn theme-toggle" id="themeToggle" title="Toggle theme">
+            <svg id="themeIcon" viewBox="0 0 16 16" fill="none" width="13" height="13"><circle cx="8" cy="8" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.9 11.9l1.05 1.05M11.9 4.11l1.05-1.06M3.05 12.95l1.06-1.06" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Content area -->
+      <main class="content" id="mainContent">
+        <!-- Views injected here -->
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toastContainer"></div>
+
+  <!-- Confirm modal -->
+  <div class="modal-overlay" id="confirmModal" hidden>
+    <div class="modal modal-confirm">
+      <div class="modal-icon" id="modalIcon">⚠</div>
+      <div class="modal-title" id="modalTitle">Confirm</div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="modalConfirm">Proceed</button>
+        <button class="btn btn-secondary" id="modalCancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wizard modal -->
+  <div class="modal-overlay" id="wizardModal" hidden>
+    <div class="modal modal-wizard">
+      <button class="modal-close" id="wizardClose" onclick="closeWizard()">✕</button>
+      <div id="wizardContent"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
