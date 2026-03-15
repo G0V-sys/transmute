@@ -1,0 +1,37 @@
+{
+  "name": "transmute",
+  "version": "1.0.0",
+  "description": "Non-destructive filesystem converter for Linux",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder --linux",
+    "build:appimage": "electron-builder --linux AppImage",
+    "build:deb": "electron-builder --linux deb",
+    "build:rpm": "electron-builder --linux rpm"
+  },
+  "build": {
+    "appId": "io.transmute.app",
+    "productName": "Transmute",
+    "copyright": "Copyright 2026",
+    "directories": { "output": "dist" },
+    "linux": {
+      "target": ["AppImage", "deb", "rpm"],
+      "category": "Utility",
+      "executableName": "transmute",
+      "synopsis": "Non-destructive filesystem converter"
+    },
+    "files": ["src/**/*", "package.json"],
+    "asar": true
+  },
+  "keywords": ["filesystem","linux","disk","ntfs","ext4","xfs","btrfs"],
+  "author": "Transmute",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^41.0.2"
+  },
+  "devDependencies": {
+    "electron-builder": "^26.0.12"
+  }
+}
