@@ -5,7 +5,7 @@ Convert drive filesystems (NTFS → ext4, ext4 → XFS, etc.) **without losing y
 
 ---
 
-Transmute has currently only been extensively tested on Nobara/Fedora. I am doing testing on more distros and will update the officially supported distro list below 
+Transmute has currently only been tested extensively on Nobara/Fedora. I am doing testing on more distros and will update the officially supported distro list below 
 as I know more. 
 
 ## How it works
