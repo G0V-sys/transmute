@@ -80,6 +80,7 @@ chmod +x install.sh
 ./run.sh to run
 ./install.sh to install
 ```
+Once installed, run transmute from any terminal or select it from your application menu.
 ---
 
 ## Privilege escalation
