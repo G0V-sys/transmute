@@ -5,6 +5,9 @@ Convert drive filesystems (NTFS → ext4, ext4 → XFS, etc.) **without losing y
 
 ---
 
+Transmute has currently only been extensively tested on Nobara/Fedora. I am doing testing on more distros and will update the officially supported distro list below 
+as I know more. 
+
 ## How it works
 
 Transmute never touches your data destructively until it has verified a complete, checksummed copy exists elsewhere:
@@ -130,5 +133,9 @@ You need a staging location with **at least 110% of your source data size** free
 - In the event of a failure, Transmute ships with a disk recovery utility baked in. You can use this to restore your data from a staging data file (in the event a conversion fails, for example). 
 - The disk recovery can also be used to restore a corrupted drive that was not caused by Transmute using the Metadata Archeology option. This option is not perfect, but I am working on improving it.
 - `/etc/fstab` is updated automatically with the new UUID — a backup is saved to `/etc/fstab.transmute.bak`
+
+## Officially Supported Distros
+
+- Nobara/Fedora
 
 ---
